@@ -2,7 +2,10 @@
 
 const form = document.querySelector("[data-form]");
 const result = document.querySelector("[data-result]");
-
+/**
+ * set the text content of the div
+ * @param {*} textContent
+ */
 const setText = (textContent) => {
   result.innerText = textContent;
 };
@@ -43,16 +46,16 @@ const checkValidDivision = (dividendValue, dividerValue) => {
 };
 /**
  * this functions checks if it is a number or not
- * @param {*} dividendValue 
- * @param {*} dividerValue 
- * @returns 
+ * @param {*} dividendValue
+ * @param {*} dividerValue
+ * @returns
  */
 const checkIfNumber = (dividendValue, dividerValue) => {
   const dividendAsNumber = Number(dividendValue);
   const dividerAsNumber = Number(dividerValue);
 
-  console.log(dividendAsNumber, dividerAsNumber)
-  if (isNaN(dividendAsNumber)  && isNaN(dividerAsNumber)) {
+  console.log(dividendAsNumber, dividerAsNumber);
+  if (isNaN(dividendAsNumber) || isNaN(dividerAsNumber)) {
     console.log(dividendAsNumber);
     document.body.innerText =
       "Something critical went wrong. Please reload the page";
@@ -67,17 +70,17 @@ form.addEventListener("submit", (event) => {
   const entries = new FormData(event.target);
   const { dividend, divider } = Object.fromEntries(entries);
 
-  if (checkNotEmpty(dividend, divider)) {
-    if (checkValidDivision(dividend, divider)) {
-      if (checkIfNumber(dividend, divider)) {
-        setText(Math.floor(dividend / divider));
-      }
-    } else {
-      setText("Division not performed. Invalid number provided. Try again");
-    }
-  } else {
+  if (!checkNotEmpty(dividend, divider)) {
     setText(
       "Division not performed. Both values are required in inputs. Try again"
     );
+    return;
+  }
+  if (!checkValidDivision(dividend, divider)) {
+    setText("Division not performed. Invalid number provided. Try again");
+    return;
+  }
+  if (checkIfNumber(dividend, divider)) {
+    setText(Math.floor(dividend / divider));
   }
 });
