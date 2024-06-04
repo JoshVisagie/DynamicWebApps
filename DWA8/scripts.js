@@ -106,16 +106,16 @@ const paginateBooks = () => {
 };
 /**
  * a function that updates the HTML on a button
- * 
+ *
  * @param {object} button The button that you want to change the HTML of
  * @param {Number} value The new number value you want to be displayed on the button
  */
-const setButtonHTML = (button, value)=>{
+const setButtonHTML = (button, value) => {
   button.innerHTML = `
         <span>Show More:</span>
       <span class="list__remaining">(${value})</span>
       `;
-}
+};
 /**
  * a function to update the 'Show More:' button
  */
@@ -131,8 +131,8 @@ const updateButton = () => {
   } else {
     button.disabled = false;
   }
- // NB added abstraction to setting the value of the button 
-setButtonHTML(button, buttonValue)
+  // NB added abstraction to setting the value of the button
+  setButtonHTML(button, buttonValue);
 };
 
 /**
@@ -148,32 +148,55 @@ const handleLoadMore = () => {
   addFragment(nextBooks);
   updateButton();
 };
+//TODO turn this into class
+// //@ts-check
+// /**
+//  * this takes an object called book and creates element with the html for a single
+//  * book.
+//  * @typedef {Object} book - a book that will be used to create a div
 
-//@ts-check
-/**
- * this takes an object called book and creates element with the html for a single
- * book.
- * @typedef {Object} book - a book that will be used to create a div
- 
- * @returns {HTMLDivElement} newElement(div)
- */
-const createPreview = (book) => {
-  const { title, image, author: authorID, id } = book;
-  const newElement = document.createElement("div");
-  const author = authors[authorID];
+//  * @returns {HTMLDivElement} newElement(div)
+//  */
+// const createPreview = (book) => {
+//   const { title, image, author: authorID, id } = book;
+//   const newElement = document.createElement("div");
+//   const author = authors[authorID];
 
-  newElement.dataset.id = id;
-  newElement.className = "preview";
-  newElement.innerHTML = `
-        <img src= ${image} class ="preview__image"alt="${title}'s bookcover">
-        <div class="list__items">       
-          <div class='preview__title'>${title}</div>
-          <div class="preview__author">${author}</div> 
-        </div>                    
-        `;
-  return newElement;
-};
+//   newElement.dataset.id = id;
+//   newElement.className = "preview";
+//   newElement.innerHTML = `
+//         <img src= ${image} class ="preview__image"alt="${title}'s bookcover">
+//         <div class="list__items">
+//           <div class='preview__title'>${title}</div>
+//           <div class="preview__author">${author}</div>
+//         </div>
+//         `;
+//   return newElement;
+// };
 
+class generatePreview {
+  constructor(book) {
+    const { title, image, author: authorID, id } = book;
+    this.title = title;
+    this.image = image;
+    this.authorID = authorID;
+    this.id = id;
+    this.author = authors[authorID];
+  }
+  get HTML() {
+    const newElement = document.createElement("div");
+    newElement.dataset.id = this.id;
+    newElement.className = "preview";
+    newElement.innerHTML = `
+         <img src= ${this.image} class ="preview__image"alt="${this.title}'s bookcover">
+          <div class="list__items">       
+          <div class='preview__title'>${this.title}</div>
+          <div class="preview__author">${this.author}</div> 
+          </div>                    
+         `;
+    return newElement;
+  }
+}
 /**
  * this factory function takes a selector from the html as an element
  * and a object to populate that selector. It also creates the first element with the text 'any' and value =null
@@ -204,7 +227,9 @@ const addFragment = (booksToRender) => {
   let { items } = HTML.list;
 
   for (const book of booksToRender) {
-    FRAGMENT.append(createPreview(book));
+    const newPreview = new generatePreview(book);
+    
+    FRAGMENT.append(newPreview.HTML);
   }
   items.appendChild(FRAGMENT);
 };
@@ -284,7 +309,7 @@ const toggleSelectedBook = (event) => {
       title.textContent = `${
         selectedBook.title
       } (${selectedBook.published.slice(0, 4)})`;
-      
+
       subtitle.textContent = authors[selectedBook.author];
       description.textContent = selectedBook.description;
       bookPreview.src = selectedBook.image;
@@ -331,7 +356,7 @@ const updateThemeColor = (event) => {
 };
 /**
  * this function sets the color mode based on the value ('day'||'night') provided
- * @param {string} targetColorMode this string is the theme dark|light from the theme selector 
+ * @param {string} targetColorMode this string is the theme dark|light from the theme selector
  * @returns {void}
  */
 const setThemeColorProperties = (targetColorMode) => {
