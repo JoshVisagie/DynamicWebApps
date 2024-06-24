@@ -1,0 +1,10 @@
+.card-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

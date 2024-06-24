@@ -148,32 +148,14 @@ const handleLoadMore = () => {
   addFragment(nextBooks);
   updateButton();
 };
-//TODO turn this into class
-// //@ts-check
-// /**
-//  * this takes an object called book and creates element with the html for a single
-//  * book.
-//  * @typedef {Object} book - a book that will be used to create a div
 
-//  * @returns {HTMLDivElement} newElement(div)
-//  */
-// const createPreview = (book) => {
-//   const { title, image, author: authorID, id } = book;
-//   const newElement = document.createElement("div");
-//   const author = authors[authorID];
-
-//   newElement.dataset.id = id;
-//   newElement.className = "preview";
-//   newElement.innerHTML = `
-//         <img src= ${image} class ="preview__image"alt="${title}'s bookcover">
-//         <div class="list__items">
-//           <div class='preview__title'>${title}</div>
-//           <div class="preview__author">${author}</div>
-//         </div>
-//         `;
-//   return newElement;
-// };
-
+/**
+ *  @param {object} book - the book we are going to generate a preview of
+ *  @param  {string} book.title -the title of the book
+ *  @param {string} book.image - an html hyperlink to the image of the book
+ *  @param {string} book.author -the ID of the author for the book
+ *  @param  {string} book.id - the ID of the book
+ */
 class generatePreview {
   constructor(book) {
     const { title, image, author: authorID, id } = book;
@@ -228,7 +210,7 @@ const addFragment = (booksToRender) => {
 
   for (const book of booksToRender) {
     const newPreview = new generatePreview(book);
-    
+
     FRAGMENT.append(newPreview.HTML);
   }
   items.appendChild(FRAGMENT);
@@ -284,6 +266,8 @@ const applySearchFilters = (event) => {
     message.classList.remove("list__message_show");
   }
 };
+
+
 /**
  * This function toggles an overlay displaying a brief summary of the books
  * preview that you have clicked on
@@ -322,7 +306,7 @@ const toggleSelectedBook = (event) => {
  * this closes the overlay of book you have selected
  * @param {event} event
  */
-const closeSelectedBookOverlay = (event) => {
+const closeSelectedBookOverlay = () => {
   let { overlay } = HTML.activeList;
   overlay.open = false;
 };
@@ -331,7 +315,7 @@ const closeSelectedBookOverlay = (event) => {
  * button on the header or the cancel button on the form
  * @param {event} event
  */
-const toggleSettingsOverlay = (event) => {
+const toggleSettingsOverlay = () => {
   let { overlay, theme } = HTML.settings;
   if (!overlay.open) {
     overlay.open = true;
