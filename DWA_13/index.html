@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/DWA_13/scpripts.js" type="module" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/shoelace-autoloader.js" defer></script>
+</head>
+<body>
+    <div id="partOne">
+        <sl-button variant="default" outline data-button-logName>log names</sl-button>
+        <sl-button variant="primary" outline data-button-matchNames>match names</sl-button>
+        <sl-button variant="danger" outline data-button-toUppercase>to uppercase </sl-button> 
+        <sl-button variant="success" outline data-button-countCharacters>count characters in name</sl-button>
+        <sl-button variant="neutral" outline data-button-sortAlphabetically>sort Alphabetically</sl-button>
+        <sl-button variant="warning" outline data-button-removeCape>Remove Cape</sl-button>
+        <sl-button variant="danger" outline data-button-containsS>Contains S</sl-button> 
+        <sl-button variant="default" outline data-button-createObject>Create Object</sl-button>
+    </div>
+    <div id="partTwo">
+        <sl-button variant="default" outline>log names</sl-button>
+        <sl-button variant="primary" outline>match names</sl-button>
+        <sl-button variant="success" outline>Uppercase</sl-button>
+        <sl-button variant="neutral" outline>Neutral</sl-button>
+        <sl-button variant="warning" outline>Warning</sl-button>
+        <sl-button variant="danger" outline>Danger</sl-button> 
+    </div>
+    <sl-dialog label="output" class="dialog-overview" data-dialog>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <sl-button slot="footer" variant="primary">Close</sl-button>
+      </sl-dialog>
+   
+
+
+</body>
+</html>
