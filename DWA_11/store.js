@@ -5,7 +5,7 @@
  */
 export const createStore = (reducer) => {
   let state;
-  let listeners =[];
+  let listeners = [];
   /**
    * gets the current state
    * @returns {Object} the current state
@@ -18,19 +18,15 @@ export const createStore = (reducer) => {
   const dispatch = (action) => {
     state = reducer(state, action);
     listeners.forEach((listener) => listener());
-    
   };
 
-/**
+  /**
    * Subscribes a listener function that will be called whenever the state changes.
    * @param {Function} listener - The listener function.
-   * @returns {Function} A function to unsubscribe the listener.
+  
    */
-const subscribe = (listener) => {
+  const subscribe = (listener) => {
     listeners.push(listener);
-    return () => {
-      unsubscribe(listener);
-    };
   };
 
   /**
@@ -38,14 +34,19 @@ const subscribe = (listener) => {
    * @param {Function} listener - The function that is to be removed from listeners.
    */
   const unsubscribe = (listener) => {
-    listeners = listeners.filter((arrayOfListeners) => arrayOfListeners !== listener);
+    if (!listeners.includes(listener)) {
+      throw new Error(`${listener} is not a subscribed listener`);
+    }
+    listeners = listeners.filter(
+      (arrayOfListeners) => arrayOfListeners !== listener
+    );
   };
-dispatch({});
+  dispatch({});
 
-return {
+  return {
     getState,
     dispatch,
     subscribe,
-    unsubscribe
-};
+    unsubscribe,
+  };
 };

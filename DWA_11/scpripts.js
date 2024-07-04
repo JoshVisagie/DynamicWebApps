@@ -13,7 +13,7 @@ const logState = () => {
 };
 
 // Subscribe the listener to state changes.
-const unsubscribeLogState = store.subscribe(logState);
+store.subscribe(logState);
 
 
 
@@ -25,4 +25,10 @@ store.dispatch({ type: SUBTRACT });
 store.dispatch({ type: RESET });
 
 // Unsubscribe the listener.
-unsubscribeLogState();
+store.unsubscribe(logState);
+try {
+  store.unsubscribe(()=>'banana');
+} catch (error) {
+  console.log(error)
+}
+console.log('h')
