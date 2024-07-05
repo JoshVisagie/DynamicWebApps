@@ -4,9 +4,7 @@ import {
   } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
   
   export class MyElement extends LitElement {
-    static properties = {
-      count: { type: Number },
-    };
+   
   
     constructor() {
       super();
